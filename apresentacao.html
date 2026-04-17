@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apresentação Completa — BitradeX</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#03080f;
+  --bg2:#060e1c;
+  --bg3:#08111f;
+  --blue:#1a6bff;
+  --blue2:#0051e0;
+  --cyan:#00d4ff;
+  --green:#00e57a;
+  --gold:#f5c842;
+  --purple:#7b5cff;
+  --white:#ffffff;
+  --muted:#3d5470;
+  --muted2:#6e8aaa;
+  --border:rgba(26,107,255,0.12);
+  --r:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:var(--bg);color:var(--white);
+  overflow-x:hidden;
+}
+
+/* ── ANIMATED BACKGROUND ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 100% 60% at 50% -10%, rgba(26,107,255,.10) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 50%, rgba(0,212,255,.04) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at 5% 80%, rgba(123,92,255,.04) 0%, transparent 55%);
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(26,107,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,107,255,.025) 1px, transparent 1px);
+  background-size:80px 80px;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 6%;
+  background:rgba(3,8,15,.75);backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:12px;text-decoration:none;
+}
+.nav-logo-text{
+  font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:3px;color:#fff;
+  line-height:1;display:flex;flex-direction:column;align-items:stretch;
+}
+.nav-logo-text span{color:var(--cyan);text-shadow:0 0 14px rgba(0,212,255,.5);}
+.nav-logo-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:.46rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.25);display:block;text-align:justify;text-align-last:justify;margin-top:2px;}
+.nav-back{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:.8rem;color:var(--muted2);text-decoration:none;font-weight:500;
+  border:1px solid rgba(255,255,255,.08);border-radius:50px;
+  padding:8px 18px;transition:all .2s;
+}
+.nav-back:hover{color:#fff;border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.04);}
+
+/* ── HERO ── */
+.hero{
+  min-height:55vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:140px 6% 60px;position:relative;z-index:1;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:24px;
+  animation:fadeUp .5s ease both;
+}
+.hero-eyebrow::before,
+.hero-eyebrow::after{content:'';display:block;width:24px;height:1px;background:var(--gold);opacity:.5;}
+
+.hero h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2.8rem,6vw,5.5rem);
+  font-weight:400;line-height:1.08;letter-spacing:-1px;
+  color:var(--white);max-width:760px;margin-bottom:20px;
+  animation:fadeUp .6s .08s ease both;
+}
+.hero h1 em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--cyan),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero p{
+  font-size:clamp(.95rem,1.6vw,1.1rem);color:var(--muted2);
+  max-width:520px;line-height:1.8;font-weight:300;
+  animation:fadeUp .6s .16s ease both;
+}
+
+/* ── DIVIDER ── */
+.divider{
+  width:100%;max-width:1100px;margin:0 auto;
+  height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,255,.15),transparent);
+  position:relative;z-index:1;
+}
+
+/* ── SECTION WRAPPER ── */
+section{position:relative;z-index:1;padding:80px 6%;}
+.si{max-width:1100px;margin:0 auto;}
+.sec-label{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;
+  color:var(--cyan);margin-bottom:12px;
+}
+.sec-label::before{content:'';width:20px;height:1px;background:var(--cyan);box-shadow:0 0 6px var(--cyan);}
+
+/* ── MAIN VIDEO ── */
+.main-video-section{padding:60px 6% 80px;}
+.main-video-wrap{
+  width:min(860px, 92vw);
+  margin:0 auto;
+  position:relative;
+}
+.main-video-glow{
+  position:absolute;inset:-40px;
+  background:radial-gradient(ellipse 70% 70% at 50% 50%, rgba(26,107,255,.18), transparent 70%);
+  pointer-events:none;z-index:0;border-radius:50%;
+  animation:glowPulse 4s ease-in-out infinite;
+}
+@keyframes glowPulse{0%,100%{opacity:.7;transform:scale(1);}50%{opacity:1;transform:scale(1.08);}}
+
+.vid-shell{
+  position:relative;z-index:1;
+  background:rgba(6,14,28,.98);
+  border:1px solid rgba(26,107,255,.28);
+  border-radius:22px;overflow:hidden;
+  box-shadow:
+    0 0 0 1px rgba(0,212,255,.06),
+    0 40px 100px rgba(0,0,0,.7),
+    0 0 80px rgba(26,107,255,.1);
+}
+.vid-header{
+  padding:12px 18px;background:rgba(255,255,255,.025);
+  border-bottom:1px solid rgba(255,255,255,.05);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.vid-dots{display:flex;gap:5px;}
+.vid-dot{width:9px;height:9px;border-radius:50%;}
+.vid-dot:nth-child(1){background:#ff5f57;}.vid-dot:nth-child(2){background:#febc2e;}.vid-dot:nth-child(3){background:#28c840;}
+.vid-label{font-size:.68rem;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;color:rgba(255,255,255,.2);}
+.vid-live{display:flex;align-items:center;gap:6px;font-size:.68rem;color:var(--cyan);font-weight:600;letter-spacing:.5px;}
+.vid-live-dot{width:5px;height:5px;border-radius:50%;background:var(--cyan);animation:livePulse 1.8s infinite;}
+@keyframes livePulse{0%,100%{opacity:1;box-shadow:0 0 6px var(--cyan);}50%{opacity:.3;box-shadow:none;}}
+
+/* 16:9 ratio */
+.vid-player{position:relative;padding-top:56.25%;background:#000;}
+.vid-cover{position:absolute;inset:0;}
+.vid-thumb{width:100%;height:100%;object-fit:cover;}
+.vid-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,8,15,.2),rgba(3,8,15,.6));}
+.vid-play-btn{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  background:none;border:none;cursor:pointer;transition:transform .25s;
+}
+.vid-play-btn:hover{transform:translate(-50%,-50%) scale(1.07);}
+.vid-play-ring{
+  width:76px;height:76px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  box-shadow:0 0 0 0 rgba(26,107,255,.4);
+  animation:ringPulse 2.4s ease-out infinite;
+}
+@keyframes ringPulse{0%{box-shadow:0 0 0 0 rgba(26,107,255,.5);}70%{box-shadow:0 0 0 18px rgba(26,107,255,0);}100%{box-shadow:0 0 0 0 rgba(26,107,255,0);}}
+.vid-play-icon{
+  width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 30px rgba(26,107,255,.5);
+  position:absolute;
+}
+.vid-play-btn span{
+  font-size:.85rem;font-weight:600;color:rgba(255,255,255,.85);
+  letter-spacing:.5px;text-shadow:0 2px 8px rgba(0,0,0,.6);
+}
+.vid-badge{
+  position:absolute;top:14px;left:14px;
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(3,8,15,.8);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,212,255,.2);border-radius:50px;
+  color:var(--cyan);font-size:.68rem;font-weight:700;
+  padding:5px 12px;letter-spacing:1px;text-transform:uppercase;
+}
+.vid-frame-wrap{position:absolute;inset:0;display:none;}
+.vid-frame-wrap iframe{width:100%;height:100%;border:none;}
+
+/* ── DEPOIMENTOS GRID ── */
+.extra-videos-section{padding:20px 6% 80px;}
+.extra-videos-section .sec-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(1.6rem,3vw,2.4rem);letter-spacing:2px;
+  color:#fff;margin-bottom:8px;
+}
+.extra-videos-section .sec-title em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.extra-videos-section .sec-sub{
+  font-size:.9rem;color:var(--muted2);line-height:1.7;font-weight:300;
+  margin-bottom:40px;max-width:520px;
+}
+.videos-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+/* VIDEO CARD — 9:16 depoimento */
+.video-card{
+  background:rgba(6,14,28,.95);
+  border:1px solid rgba(26,107,255,.16);
+  border-radius:20px;overflow:hidden;
+  transition:border-color .3s,transform .3s,box-shadow .3s;
+}
+.video-card:hover{
+  border-color:rgba(0,212,255,.32);
+  transform:translateY(-6px);
+  box-shadow:0 24px 56px rgba(0,0,0,.55),0 0 32px rgba(0,212,255,.08);
+}
+.vc-player{position:relative;padding-top:177.78%;background:#020609;}
+.vc-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.vc-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,8,15,.05) 0%,rgba(3,8,15,.65) 100%);}
+.vc-play{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:58px;height:58px;border-radius:50%;
+  background:rgba(26,107,255,.9);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 28px rgba(26,107,255,.55);
+  cursor:pointer;border:none;transition:transform .2s,box-shadow .2s;
+}
+.vc-play:hover{transform:translate(-50%,-50%) scale(1.12);box-shadow:0 0 44px rgba(26,107,255,.75);}
+.vc-frame{position:absolute;inset:0;display:none;}
+.vc-frame iframe{width:100%;height:100%;border:none;}
+/* Quote info below video */
+.vc-info{padding:20px 22px 24px;}
+.vc-stars{display:flex;gap:3px;margin-bottom:10px;}
+.vc-star{color:var(--gold);font-size:.82rem;}
+.vc-quote{
+  font-size:.88rem;color:rgba(255,255,255,.85);line-height:1.72;
+  font-style:italic;margin-bottom:16px;
+  position:relative;padding-left:14px;
+}
+.vc-quote::before{
+  content:'';position:absolute;left:0;top:3px;bottom:3px;
+  width:2px;border-radius:2px;
+  background:linear-gradient(180deg,var(--cyan),var(--blue));
+}
+.vc-author{display:flex;align-items:center;gap:10px;}
+.vc-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1px;
+  color:#fff;flex-shrink:0;border:1px solid rgba(0,212,255,.2);
+}
+.vc-name{font-size:.83rem;font-weight:600;color:#fff;line-height:1.2;}
+.vc-role{font-size:.71rem;color:var(--muted2);margin-top:2px;}
+
+/* ── CTA SECTION ── */
+.cta-section{
+  padding:80px 6% 100px;
+  text-align:center;
+}
+.cta-box{
+  max-width:680px;margin:0 auto;
+  background:rgba(6,14,28,.9);
+  border:1px solid rgba(26,107,255,.2);
+  border-radius:28px;padding:56px 48px;
+  box-shadow:0 0 0 1px rgba(0,212,255,.04), 0 40px 100px rgba(0,0,0,.6), 0 0 80px rgba(26,107,255,.06);
+  position:relative;overflow:hidden;
+}
+.cta-box::before{
+  content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+  width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle, rgba(26,107,255,.12), transparent 70%);
+  pointer-events:none;
+}
+.cta-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:20px;
+}
+.cta-eyebrow::before,.cta-eyebrow::after{content:'';width:20px;height:1px;background:var(--gold);opacity:.5;}
+.cta-box h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.15;
+  letter-spacing:-.5px;color:#fff;margin-bottom:12px;
+}
+.cta-box h2 em{font-style:italic;color:var(--cyan);}
+.cta-box p{
+  font-size:.95rem;color:var(--muted2);line-height:1.75;font-weight:300;
+  max-width:460px;margin:0 auto 40px;
+}
+
+/* WA BUTTONS */
+.wa-btns{
+  display:flex;flex-wrap:wrap;gap:14px;justify-content:center;
+}
+.wa-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 30px;border-radius:50px;
+  font-size:.92rem;font-weight:700;text-decoration:none;
+  letter-spacing:.3px;transition:transform .2s,box-shadow .2s;
+  cursor:pointer;position:relative;z-index:1;
+}
+.wa-primary{
+  background:linear-gradient(135deg,#25d366,#1aab52);
+  color:#fff;
+  box-shadow:0 8px 28px rgba(37,211,102,.35);
+}
+.wa-primary:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(37,211,102,.55);}
+.wa-secondary{
+  border:1px solid rgba(37,211,102,.3);
+  color:#25d366;background:rgba(37,211,102,.06);
+}
+.wa-secondary:hover{background:rgba(37,211,102,.12);border-color:rgba(37,211,102,.55);transform:translateY(-2px);}
+
+.cta-trust{
+  display:flex;flex-wrap:wrap;gap:20px;justify-content:center;
+  margin-top:30px;
+}
+.ctrust{display:flex;align-items:center;gap:7px;font-size:.75rem;color:var(--muted);}
+
+/* ── FOOTER ── */
+footer{
+  background:rgba(3,8,15,.95);border-top:1px solid rgba(255,255,255,.04);
+  padding:28px 6%;display:flex;flex-wrap:wrap;
+  justify-content:space-between;align-items:center;gap:12px;
+  position:relative;z-index:1;
+}
+.fl{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;color:rgba(255,255,255,.3);}
+.fl span{color:var(--cyan);}
+.ft{font-size:.68rem;color:rgba(255,255,255,.18);}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px) and (min-width:769px){
+  .videos-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:768px){
+  nav{padding:14px 5%;}
+  .hero{padding:120px 5% 50px;}
+  .cta-box{padding:40px 28px;}
+  .main-video-wrap{width:92vw;}
+  .videos-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="aibot-trader-lp-v2.html" class="nav-logo">
+    <div class="nav-logo-text">BITRADE<span>X</span><span class="nav-logo-sub">Equipe Vektor</span></div>
+  </a>
+  <a href="aibot-trader-lp-v2.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Voltar à página inicial
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Apresentação Completa</div>
+  <h1>Entenda tudo sobre a<br><em>BitradeX</em> antes de decidir</h1>
+  <p>Assista os vídeos abaixo, conheça a plataforma por dentro e tire todas as suas dúvidas antes de dar o próximo passo.</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- MAIN VIDEO -->
+<section class="main-video-section">
+  <div class="si" style="display:flex;flex-direction:column;align-items:center;">
+    <div class="sec-label reveal" style="margin-bottom:32px;">Vídeo Principal</div>
+    <div class="main-video-wrap reveal">
+      <div class="main-video-glow"></div>
+      <div class="vid-shell">
+        <div class="vid-header">
+          <div class="vid-dots">
+            <div class="vid-dot"></div><div class="vid-dot"></div><div class="vid-dot"></div>
+          </div>
+          <div class="vid-label">BITRADEX — APRESENTAÇÃO</div>
+          <div class="vid-live"><div class="vid-live-dot"></div>OFICIAL</div>
+        </div>
+        <div class="vid-player">
+          <div class="vid-cover" id="mainCover">
+            <img src="https://img.youtube.com/vi/fSevbFtfIMQ/maxresdefault.jpg"
+                 onerror="this.src='https://img.youtube.com/vi/fSevbFtfIMQ/hqdefault.jpg'"
+                 class="vid-thumb" alt="Apresentação BitradeX">
+            <div class="vid-overlay"></div>
+            <div class="vid-badge"><span class="vid-live-dot"></span>Apresentação Oficial</div>
+            <button class="vid-play-btn" id="mainPlayBtn">
+              <div class="vid-play-ring">
+                <div class="vid-play-icon">
+                  <svg width="22" height="24" viewBox="0 0 22 24" fill="none">
+                    <path d="M2 2L20 12L2 22V2Z" fill="white"/>
+                  </svg>
+                </div>
+              </div>
+              <span>Assistir agora</span>
+            </button>
+          </div>
+          <div class="vid-frame-wrap" id="mainFrameWrap">
+            <iframe id="mainIframe" src="" title="BitradeX Apresentação Principal"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXTRA VIDEOS -->
+<section class="extra-videos-section">
+  <div class="si">
+    <div class="sec-label reveal">Depoimentos</div>
+    <h2 class="sec-title reveal">Quem já usa a IA <em>trabalhando por eles</em></h2>
+    <p class="sec-sub reveal">Veja o que dizem os investidores que deixaram a IA operar por eles — resultados reais, sem edição.</p>
+
+    <div class="videos-grid">
+
+      <!-- DEPOIMENTO 1 -->
+      <div class="video-card reveal" data-ytid="fNqqolGPibs">
+        <div class="vc-player">
+          <img class="vc-thumb" src="https://img.youtube.com/vi/fNqqolGPibs/hqdefault.jpg" alt="Depoimento 1">
+          <div class="vc-overlay"></div>
+          <button class="vc-play">
+            <svg width="18" height="20" viewBox="0 0 18 20" fill="none"><path d="M2 2l14 8L2 18V2Z" fill="white"/></svg>
+          </button>
+          <div class="vc-frame"><iframe src="" allow="autoplay" allowfullscreen></iframe></div>
+        </div>
+        <div class="vc-info">
+          <div class="vc-stars">
+            <span class="vc-star">★</span><span class="vc-star">★</span><span class="vc-star">★</span><span class="vc-star">★</span><span class="vc-star">★</span>
+          </div>
+          <div class="vc-quote">"...o que eu posso falar hoje é o seguinte, quem não está, está dando mole, tá deixando dinheiro na mesa..."</div>
+          <div class="vc-author">
+            <div class="vc-avatar">R</div>
+            <div>
+              <div class="vc-name">Rafael M.</div>
+              <div class="vc-role">Usuário BitradeX · Investidor</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DEPOIMENTO 2 -->
+      <div class="video-card reveal" data-ytid="vHrVqP4itug">
+        <div class="vc-player">
+          <img class="vc-thumb" src="https://img.youtube.com/vi/vHrVqP4itug/hqdefault.jpg" alt="Depoimento 2">
+          <div class="vc-overlay"></div>
+          <button class="vc-play">
+            <svg width="18" height="20" viewBox="0 0 18 20" fill="none"><path d="M2 2l14 8L2 18V2Z" fill="white"/></svg>
+          </button>
+          <div class="vc-frame"><iframe src="" allow="autoplay" allowfullscreen></iframe></div>
+        </div>
+        <div class="vc-info">
+          <div class="vc-stars">
+            <span class="vc-star">★</span><span class="vc-star">★</span><span class="vc-star">★</span><span class="vc-star">★</span><span class="vc-star">★</span>
+          </div>
+          <div class="vc-quote">"aqui eu tenho uma ferramenta fenomenal, onde eu coloco meu dinheiro e ganho 0,5% todos os dias, 15% ao mês... estamos no melhor negocio vamos pra cima"</div>
+          <div class="vc-author">
+            <div class="vc-avatar" style="background:linear-gradient(135deg,var(--green),var(--cyan))">M</div>
+            <div>
+              <div class="vc-name">Magno</div>
+              <div class="vc-role">Usuária BitradeX · Empreendedora</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DEPOIMENTO 3 -->
+      <div class="video-card reveal" data-ytid="esrTzl-7jnY">
+        <div class="vc-player">
+          <img class="vc-thumb" src="https://img.youtube.com/vi/esrTzl-7jnY/hqdefault.jpg" alt="Depoimento 3">
+          <div class="vc-overlay"></div>
+          <button class="vc-play">
+            <svg width="18" height="20" viewBox="0 0 18 20" fill="none"><path d="M2 2l14 8L2 18V2Z" fill="white"/></svg>
+          </button>
+          <div class="vc-frame"><iframe src="" allow="autoplay" allowfullscreen></iframe></div>
+        </div>
+        <div class="vc-info">
+          <div class="vc-stars">
+            <span class="vc-star">★</span><span class="vc-star">★</span><span class="vc-star">★</span><span class="vc-star">★</span><span class="vc-star">★</span>
+          </div>
+          <div class="vc-quote">"...quatro meses que estou investindo, já tive um rendimento de mais 4 mil dólares..."</div>
+          <div class="vc-author">
+            <div class="vc-avatar" style="background:linear-gradient(135deg,var(--gold),#e07b00)">C</div>
+            <div>
+              <div class="vc-name">Carlos</div>
+              <div class="vc-role">Usuário BitradeX · Analista</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-box reveal">
+    <div class="cta-eyebrow">Próximo Passo</div>
+    <h2>Pronto para <em>começar?</em></h2>
+    <p>Abra sua conta na corretora pela nossa equipe e tenha acesso completo ao bot, área de membros e suporte humano dedicado.</p>
+
+    <div class="wa-btns">
+      <a href="#" onclick="openLeadPopup('corretora');return false;" target="_blank" class="wa-btn wa-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Abrir Conta na Corretora
+      </a>
+      <a href="#" onclick="openLeadPopup('suporte');return false;" target="_blank" class="wa-btn wa-secondary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Falar com Suporte
+      </a>
+    </div>
+
+    <div class="cta-trust">
+      <span class="ctrust">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L2 3.2v3.5C2 9.5 4 11.9 6.5 12.8 9 11.9 11 9.5 11 6.7V3.2L6.5 1z" stroke="var(--green)" stroke-width="1.2"/><path d="M4.5 6.5l1.5 1.5 2.5-2.5" stroke="var(--green)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Suporte humano real
+      </span>
+      <span class="ctrust">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.2" stroke="var(--cyan)" stroke-width="1.2"/><path d="M6.5 3.5v3l1.8 1.1" stroke="var(--cyan)" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Resposta em minutos
+      </span>
+      <span class="ctrust">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polyline points="1.5,7 4,9.5 8,4" stroke="var(--green)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="5.5,7 8,9.5 12,4" stroke="var(--green)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity=".45"/></svg>
+        Processo simples e rápido
+      </span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fl" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;color:rgba(255,255,255,.3);line-height:1;display:inline-flex;flex-direction:column;align-items:stretch;">
+    <span>BITRADE<span style="color:var(--cyan);">X</span></span>
+    <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:.46rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.18);text-align:justify;text-align-last:justify;margin-top:2px;">Equipe Vektor</span>
+  </div>
+  <div class="ft">© 2026 BitradeX. Todos os direitos reservados.</div>
+  <div class="ft" style="font-size:.62rem;opacity:.7">Resultados passados não garantem resultados futuros.</div>
+</footer>
+
+<script>
+// ── MAIN VIDEO ──────────────────────────────────────────
+(function(){
+  const cover     = document.getElementById('mainCover');
+  const frameWrap = document.getElementById('mainFrameWrap');
+  const iframe    = document.getElementById('mainIframe');
+  const playBtn   = document.getElementById('mainPlayBtn');
+  if(!playBtn) return;
+  playBtn.addEventListener('click', function(){
+    iframe.src = 'https://www.youtube.com/embed/fSevbFtfIMQ?autoplay=1&rel=0&modestbranding=1';
+    cover.style.display = 'none';
+    frameWrap.style.display = 'block';
+  });
+})();
+
+// ── EXTRA VIDEO CARDS ───────────────────────────────────
+document.querySelectorAll('.video-card').forEach(function(card){
+  const ytId   = card.getAttribute('data-ytid');
+  const btn    = card.querySelector('.vc-play');
+  const cover  = card.querySelector('.vc-overlay');
+  const thumb  = card.querySelector('.vc-thumb');
+  const overlay= card.querySelector('.vc-overlay');
+  const frame  = card.querySelector('.vc-frame');
+  const iframe = card.querySelector('.vc-frame iframe');
+  if(!btn || !ytId || ytId.startsWith('SEU_')) return;
+  btn.addEventListener('click', function(){
+    iframe.src = 'https://www.youtube.com/embed/'+ytId+'?autoplay=1&rel=0&modestbranding=1';
+    thumb.style.display = 'none';
+    overlay.style.display = 'none';
+    btn.style.display = 'none';
+    frame.style.display = 'block';
+  });
+});
+
+// ── SCROLL REVEAL ───────────────────────────────────────
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if(e.isIntersecting){
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+<!-- LEAD CAPTURE POPUP -->
+<div id="leadOverlay" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(3,8,15,0.88);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:24px;">
+  <div style="background:rgba(6,14,28,.99);border:1px solid rgba(26,107,255,.28);border-radius:22px;padding:40px 36px;max-width:420px;width:100%;box-shadow:0 40px 100px rgba(0,0,0,.7),0 0 80px rgba(26,107,255,.08);position:relative;">
+
+    <button onclick="closeLeadPopup()" style="position:absolute;top:16px;right:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;">✕</button>
+
+    <div style="text-align:center;margin-bottom:28px;">
+      <div id="popupIcon" style="font-size:2rem;margin-bottom:12px;">✅</div>
+      <h3 id="popupTitle" style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:2px;color:#fff;margin-bottom:8px;text-transform:uppercase;"></h3>
+      <p id="popupDesc" style="font-size:.85rem;color:#6e8aaa;line-height:1.65;"></p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
+      <div>
+        <label style="font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#3d5470;display:block;margin-bottom:6px;">Seu nome</label>
+        <input id="leadName" type="text" placeholder="Como podemos te chamar?" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:13px 16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.9rem;color:#fff;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(0,212,255,.4)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'">
+      </div>
+      <div>
+        <label style="font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#3d5470;display:block;margin-bottom:6px;">Seu WhatsApp</label>
+        <input id="leadPhone" type="tel" placeholder="(00) 00000-0000" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:13px 16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.9rem;color:#fff;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(0,212,255,.4)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'">
+      </div>
+    </div>
+
+    <div id="leadErr" style="color:#ff6b6b;font-size:.8rem;margin-bottom:12px;display:none;">Por favor, preencha nome e WhatsApp.</div>
+
+    <button id="popupBtn" onclick="submitLead()" style="width:100%;padding:15px;border-radius:50px;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.3px;transition:transform .2s,box-shadow .2s;"></button>
+
+    <p style="text-align:center;font-size:.72rem;color:#3d5470;margin-top:14px;">🔒 Seus dados são usados apenas para contato.</p>
+  </div>
+</div>
+
+<style>
+#leadOverlay.open{display:flex !important;}
+</style>
+
+<script>
+const SUPA_URL = 'https://msvrdyxkgtxgdjjguujz.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zdnJkeXhrZ3R4Z2Rqamd1dWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0Mjk3MjIsImV4cCI6MjA5MjAwNTcyMn0.Xr_YGXGxROYnRuMQBZj3izCC7NtimOCiQkuzdwdEHjA';
+
+const DEST_CONFIG_AP = {
+  corretora:{
+    icon:'✅',
+    title:'Quase lá!',
+    desc:'Deixa seu contato e a nossa equipe vai te acompanhar em todo o processo de abertura de conta.',
+    btnTxt:'Ir para o WhatsApp →',
+    btnStyle:'background:linear-gradient(135deg,#25d366,#1aab52);color:#fff;box-shadow:0 8px 24px rgba(37,211,102,.35);',
+    url:'https://wa.me/5598996167192?text=Ol%C3%A1%2C%20quero%20abrir%20uma%20conta!%20na%20corretora'
+  },
+  suporte:{
+    icon:'💬',
+    title:'Vamos te ajudar!',
+    desc:'Deixa seu contato e nossa equipe responde todas as suas dúvidas em minutos.',
+    btnTxt:'Ir para o WhatsApp →',
+    btnStyle:'background:linear-gradient(135deg,#25d366,#1aab52);color:#fff;box-shadow:0 8px 24px rgba(37,211,102,.35);',
+    url:'https://wa.me/5598996167192?text=Ol%C3%A1%2C%20quero%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20corretora!'
+  }
+};
+let _destAP = 'corretora';
+
+function openLeadPopup(dest){
+  _destAP = dest || 'corretora';
+  const cfg = DEST_CONFIG_AP[_destAP];
+  document.getElementById('popupIcon').textContent  = cfg.icon;
+  document.getElementById('popupTitle').textContent = cfg.title;
+  document.getElementById('popupDesc').textContent  = cfg.desc;
+  const btn = document.getElementById('popupBtn');
+  btn.textContent = cfg.btnTxt;
+  btn.style.cssText = cfg.btnStyle + 'width:100%;padding:15px;border-radius:50px;border:none;cursor:pointer;font-family:inherit;font-size:.95rem;font-weight:700;letter-spacing:.3px;';
+  document.getElementById('leadErr').style.display = 'none';
+  document.getElementById('leadName').value = '';
+  document.getElementById('leadPhone').value = '';
+  document.getElementById('leadOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(()=>document.getElementById('leadName').focus(), 100);
+}
+
+function closeLeadPopup(){
+  document.getElementById('leadOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+async function submitLead(){
+  const name  = document.getElementById('leadName').value.trim();
+  const phone = document.getElementById('leadPhone').value.trim();
+  if(!name || !phone){
+    document.getElementById('leadErr').style.display = 'block';
+    return;
+  }
+  const btn = document.getElementById('popupBtn');
+  btn.textContent = 'Salvando...';
+  btn.disabled = true;
+  try {
+    await fetch(`${SUPA_URL}/rest/v1/leads`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPA_KEY,
+        'Authorization': `Bearer ${SUPA_KEY}`
+      },
+      body: JSON.stringify({ name, phone, dest: _destAP, origin: 'apresentacao' })
+    });
+  } catch(e) { console.error('Erro ao salvar lead:', e); }
+  closeLeadPopup();
+  window.open(DEST_CONFIG_AP[_destAP].url, '_blank');
+}
+
+// Close on overlay click
+document.getElementById('leadOverlay').addEventListener('click', function(e){
+  if(e.target === this) closeLeadPopup();
+});
+// Enter key
+document.addEventListener('keydown', e => {
+  if(e.key === 'Enter' && document.getElementById('leadOverlay').classList.contains('open')) submitLead();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Leads Equipe Vektor</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050d1a;--bg2:#071020;
+  --blue:#1a6bff;--cyan:#00d4ff;--green:#00e57a;
+  --white:#fff;--muted:#4a6080;--muted2:#8096b8;
+  --border:rgba(26,107,255,0.14);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--white);min-height:100vh;}
+
+/* ── LOGIN ── */
+.login-wrap{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse 70% 50% at 50% 100%,rgba(26,107,255,.14),transparent 65%);
+}
+.login-box{
+  background:rgba(7,16,32,.98);border:1px solid rgba(26,107,255,.22);
+  border-radius:20px;padding:44px 40px;max-width:380px;width:90%;
+  box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(26,107,255,.07);
+  text-align:center;
+}
+.login-logo{
+  font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:4px;
+  color:#fff;margin-bottom:6px;
+}
+.login-logo span{color:var(--cyan);text-shadow:0 0 16px rgba(0,212,255,.6);}
+.login-sub{font-size:.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:32px;}
+.login-box input{
+  width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:13px 18px;font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.9rem;color:#fff;outline:none;transition:border-color .2s,box-shadow .2s;margin-bottom:14px;
+}
+.login-box input::placeholder{color:rgba(255,255,255,.25);}
+.login-box input:focus{border-color:rgba(0,212,255,.4);box-shadow:0 0 0 3px rgba(0,212,255,.07);}
+.login-btn{
+  width:100%;background:linear-gradient(135deg,var(--blue),#0051e0);color:#fff;
+  border:none;border-radius:50px;padding:14px;font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.95rem;font-weight:700;cursor:pointer;letter-spacing:.3px;
+  box-shadow:0 8px 24px rgba(26,107,255,.35);transition:transform .2s,box-shadow .2s;
+}
+.login-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(26,107,255,.5);}
+.login-err{color:#ff6b6b;font-size:.8rem;margin-top:12px;display:none;}
+
+/* ── DASHBOARD ── */
+#dashboard{display:none;}
+.dash-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 5%;background:rgba(5,13,26,.9);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;
+}
+.dash-logo{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:3px;color:#fff;}
+.dash-logo span{color:var(--cyan);}
+.dash-right{display:flex;align-items:center;gap:16px;}
+.dash-badge{
+  font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+  color:var(--cyan);background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.18);
+  padding:5px 14px;border-radius:50px;
+}
+.logout-btn{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  color:var(--muted2);padding:7px 16px;border-radius:50px;font-size:.8rem;
+  cursor:pointer;transition:background .2s,color .2s;font-family:'Plus Jakarta Sans',sans-serif;
+}
+.logout-btn:hover{background:rgba(255,255,255,.1);color:#fff;}
+
+.dash-body{padding:40px 5%;max-width:1100px;margin:0 auto;}
+.dash-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:40px;}
+.stat-card{
+  background:rgba(7,16,32,.9);border:1px solid var(--border);
+  border-radius:16px;padding:22px 24px;
+}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:2px;color:var(--white);}
+.stat-num.g{color:var(--green);text-shadow:0 0 16px rgba(0,229,122,.3);}
+.stat-num.b{color:var(--cyan);text-shadow:0 0 16px rgba(0,212,255,.3);}
+.stat-lbl{font-size:.73rem;color:var(--muted);font-weight:500;letter-spacing:.5px;text-transform:uppercase;margin-top:4px;}
+
+.table-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:16px;flex-wrap:wrap;gap:12px;
+}
+.table-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;color:#fff;}
+.table-actions{display:flex;gap:10px;}
+.btn-sm{
+  padding:9px 18px;border-radius:50px;font-size:.8rem;font-weight:600;
+  cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:.3px;
+  transition:transform .2s,box-shadow .2s;border:none;
+}
+.btn-export{background:linear-gradient(135deg,var(--blue),#0051e0);color:#fff;box-shadow:0 4px 16px rgba(26,107,255,.3);}
+.btn-export:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(26,107,255,.45);}
+.btn-clear{background:rgba(255,95,87,.1);border:1px solid rgba(255,95,87,.2) !important;color:#ff6b6b;border:none;}
+.btn-clear:hover{background:rgba(255,95,87,.18);}
+
+/* Filter tabs */
+.filter-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.ftab{
+  padding:7px 18px;border-radius:50px;font-size:.8rem;font-weight:600;
+  cursor:pointer;border:1px solid rgba(255,255,255,.1);color:var(--muted2);
+  background:transparent;font-family:'Plus Jakarta Sans',sans-serif;
+  transition:all .2s;
+}
+.ftab.active,.ftab:hover{border-color:rgba(0,212,255,.3);color:var(--white);background:rgba(0,212,255,.06);}
+
+.table-wrap{
+  background:rgba(7,16,32,.9);border:1px solid var(--border);
+  border-radius:16px;overflow:hidden;
+}
+.table-scroll{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;min-width:600px;}
+thead tr{background:rgba(255,255,255,.03);border-bottom:1px solid var(--border);}
+th{
+  padding:14px 20px;font-size:.72rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:1px;color:var(--muted);text-align:left;white-space:nowrap;
+}
+tbody tr{border-bottom:1px solid rgba(255,255,255,.04);transition:background .2s;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:rgba(255,255,255,.02);}
+td{padding:15px 20px;font-size:.87rem;color:var(--muted2);vertical-align:middle;}
+td.name{color:#fff;font-weight:500;}
+td.phone a{color:var(--cyan);text-decoration:none;font-weight:500;}
+td.phone a:hover{text-decoration:underline;}
+.dest-badge{
+  display:inline-flex;padding:4px 12px;border-radius:50px;font-size:.7rem;font-weight:600;letter-spacing:.5px;
+}
+.dest-corretora{background:rgba(0,229,122,.1);color:var(--green);border:1px solid rgba(0,229,122,.2);}
+.dest-suporte{background:rgba(26,107,255,.1);color:var(--cyan);border:1px solid rgba(26,107,255,.2);}
+.td-del{
+  background:none;border:none;color:rgba(255,95,87,.4);cursor:pointer;
+  font-size:.9rem;transition:color .2s;padding:4px 8px;border-radius:6px;
+}
+.td-del:hover{color:#ff6b6b;background:rgba(255,95,87,.08);}
+
+.empty-state{
+  padding:60px 20px;text-align:center;color:var(--muted);
+}
+.empty-state svg{width:48px;height:48px;opacity:.3;margin-bottom:16px;}
+.empty-state p{font-size:.9rem;}
+
+/* Search */
+.search-wrap{position:relative;max-width:280px;}
+.search-input{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;padding:10px 16px 10px 38px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.85rem;color:#fff;
+  outline:none;width:100%;transition:border-color .2s;
+}
+.search-input::placeholder{color:rgba(255,255,255,.2);}
+.search-input:focus{border-color:rgba(0,212,255,.3);}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;}
+
+@media(max-width:600px){
+  .login-box,.dash-body{padding:32px 24px;}
+  .dash-stats{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <div class="login-logo">EQUIPE <span>VEKTOR</span></div>
+    <div class="login-sub">Painel Admin</div>
+    <input type="text" id="loginUser" placeholder="Usuário" autocomplete="username">
+    <input type="password" id="loginPass" placeholder="Senha" autocomplete="current-password">
+    <button class="login-btn" onclick="doLogin()">Entrar</button>
+    <div class="login-err" id="loginErr">Usuário ou senha incorretos.</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <nav class="dash-nav">
+    <div class="dash-logo">EQUIPE <span>VEKTOR</span> <span style="font-size:.6em;letter-spacing:1px;color:var(--muted);margin-left:4px;">ADMIN</span></div>
+    <div class="dash-right">
+      <span class="dash-badge">🔒 Área Restrita</span>
+      <button class="logout-btn" onclick="doLogout()">Sair</button>
+    </div>
+  </nav>
+
+  <div class="dash-body">
+    <!-- Stats -->
+    <div class="dash-stats" id="dashStats"></div>
+
+    <!-- Table -->
+    <div class="table-header">
+      <span class="table-title">Leads Capturados</span>
+      <div class="table-actions">
+        <div class="search-wrap">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="#4a6080" stroke-width="1.3"/><path d="M9.5 9.5L12 12" stroke="#4a6080" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <input type="text" class="search-input" id="searchInput" placeholder="Buscar nome ou WhatsApp..." oninput="renderTable()">
+        </div>
+        <button class="btn-sm btn-export" onclick="exportCSV()">⬇ Exportar CSV</button>
+        <button class="btn-sm btn-clear" onclick="clearAll()">🗑 Limpar</button>
+      </div>
+    </div>
+
+    <div class="filter-tabs" id="filterTabs">
+      <button class="ftab active" data-filter="all" onclick="setFilter(this,'all')">Todos</button>
+      <button class="ftab" data-filter="corretora" onclick="setFilter(this,'corretora')">Corretora</button>
+      <button class="ftab" data-filter="suporte" onclick="setFilter(this,'suporte')">Suporte</button>
+      <button class="ftab" data-filter="__origem_lp" onclick="setFilter(this,'__origem_lp')">LP Principal</button>
+      <button class="ftab" data-filter="__origem_ap" onclick="setFilter(this,'__origem_ap')">Apresentação</button>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table id="leadsTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nome</th>
+              <th>WhatsApp</th>
+              <th>Destino</th>
+              <th>Origem</th>
+              <th>Data / Hora</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="leadsBody"></tbody>
+        </table>
+      </div>
+      <div class="empty-state" id="emptyState" style="display:none">
+        <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="10" width="36" height="28" rx="4" stroke="currentColor" stroke-width="2"/><path d="M14 20h20M14 28h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <p>Nenhum lead encontrado.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── SUPABASE CONFIG ──────────────────────────────────────────────
+const SUPA_URL = 'https://msvrdyxkgtxgdjjguujz.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zdnJkeXhrZ3R4Z2Rqamd1dWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0Mjk3MjIsImV4cCI6MjA5MjAwNTcyMn0.Xr_YGXGxROYnRuMQBZj3izCC7NtimOCiQkuzdwdEHjA';
+
+const HEADERS = {
+  'Content-Type': 'application/json',
+  'apikey': SUPA_KEY,
+  'Authorization': `Bearer ${SUPA_KEY}`
+};
+
+// ─── AUTH ─────────────────────────────────────────────────────────
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = 'bitradex2025';
+
+function doLogin(){
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value.trim();
+  if(u === ADMIN_USER && p === ADMIN_PASS){
+    sessionStorage.setItem('bx_auth','1');
+    document.getElementById('loginWrap').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    renderAll();
+  } else {
+    document.getElementById('loginErr').style.display = 'block';
+  }
+}
+
+function doLogout(){
+  sessionStorage.removeItem('bx_auth');
+  location.reload();
+}
+
+['loginUser','loginPass'].forEach(id =>
+  document.getElementById(id).addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); })
+);
+
+// ─── DATA ─────────────────────────────────────────────────────────
+let _allLeads = [];
+let _filter = 'all';
+
+async function fetchLeads(){
+  try {
+    const res = await fetch(`${SUPA_URL}/rest/v1/leads?order=ts.desc`, { headers: HEADERS });
+    _allLeads = await res.json();
+  } catch(e) { console.error('Erro ao buscar leads:', e); }
+}
+
+function setFilter(el, f){
+  _filter = f;
+  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderTable();
+}
+
+async function renderAll(){
+  await fetchLeads();
+  renderStats();
+  renderTable();
+}
+
+function renderStats(){
+  const leads = _allLeads;
+  const corretora = leads.filter(l => l.dest === 'corretora').length;
+  const suporte   = leads.filter(l => l.dest === 'suporte').length;
+  const today = new Date().toDateString();
+  const todayCount = leads.filter(l => new Date(l.ts).toDateString() === today).length;
+  const apCount = leads.filter(l => l.origin === 'apresentacao').length;
+
+  document.getElementById('dashStats').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-num">${leads.length}</div>
+      <div class="stat-lbl">Total de Leads</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num g">${corretora}</div>
+      <div class="stat-lbl">Conta Corretora</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num b">${suporte}</div>
+      <div class="stat-lbl">Suporte</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">${todayCount}</div>
+      <div class="stat-lbl">Hoje</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--gold,#f5c842)">${apCount}</div>
+      <div class="stat-lbl">Via Apresentação</div>
+    </div>
+  `;
+}
+
+function renderTable(){
+  const q = (document.getElementById('searchInput').value || '').toLowerCase();
+  let filtered = _allLeads.filter(l => {
+    let matchFilter = true;
+    if(_filter === 'corretora') matchFilter = l.dest === 'corretora';
+    else if(_filter === 'suporte') matchFilter = l.dest === 'suporte';
+    else if(_filter === '__origem_lp') matchFilter = !l.origin || l.origin === 'lp';
+    else if(_filter === '__origem_ap') matchFilter = l.origin === 'apresentacao';
+    const matchSearch = !q || (l.name||'').toLowerCase().includes(q) || (l.phone||'').toLowerCase().includes(q);
+    return matchFilter && matchSearch;
+  });
+
+  const tbody = document.getElementById('leadsBody');
+  const empty = document.getElementById('emptyState');
+
+  if(filtered.length === 0){
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = filtered.map((l, i) => {
+    const d = new Date(l.ts);
+    const dateStr = d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    const wLink = 'https://wa.me/55' + (l.phone||'').replace(/\D/g,'');
+    const badgeClass = l.dest === 'corretora' ? 'dest-corretora' : 'dest-suporte';
+    const badgeTxt   = l.dest === 'corretora' ? '✅ Corretora' : '💬 Suporte';
+    const originTxt  = l.origin === 'apresentacao'
+      ? '<span style="font-size:.7rem;color:#f5c842;background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.18);padding:3px 10px;border-radius:50px;">🎥 Apresentação</span>'
+      : '<span style="font-size:.7rem;color:var(--muted2);">LP Principal</span>';
+    return `
+      <tr>
+        <td style="color:var(--muted);font-size:.75rem;">${filtered.length - i}</td>
+        <td class="name">${esc(l.name) || '<em style="opacity:.4">—</em>'}</td>
+        <td class="phone"><a href="${wLink}" target="_blank">${esc(l.phone) || '—'}</a></td>
+        <td><span class="dest-badge ${badgeClass}">${badgeTxt}</span></td>
+        <td>${originTxt}</td>
+        <td>${dateStr}</td>
+        <td><button class="td-del" onclick="deleteLead(${l.id})" title="Remover">✕</button></td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+async function deleteLead(id){
+  if(!confirm('Remover este lead?')) return;
+  try {
+    await fetch(`${SUPA_URL}/rest/v1/leads?id=eq.${id}`, {
+      method: 'DELETE',
+      headers: HEADERS
+    });
+    await renderAll();
+  } catch(e) { console.error('Erro ao deletar:', e); }
+}
+
+async function clearAll(){
+  if(!confirm('Apagar TODOS os leads? Esta ação não pode ser desfeita.')) return;
+  try {
+    await fetch(`${SUPA_URL}/rest/v1/leads?id=gt.0`, {
+      method: 'DELETE',
+      headers: HEADERS
+    });
+    await renderAll();
+  } catch(e) { console.error('Erro ao limpar leads:', e); }
+}
+
+function exportCSV(){
+  const leads = _allLeads;
+  if(!leads.length){ alert('Nenhum lead para exportar.'); return; }
+  const header = 'Nome,WhatsApp,Destino,Origem,Data\n';
+  const rows = leads.map(l => {
+    const d = new Date(l.ts).toLocaleString('pt-BR');
+    return `"${l.name}","${l.phone}","${l.dest}","${l.origin||'lp'}","${d}"`;
+  }).join('\n');
+  const blob = new Blob(['\uFEFF'+header+rows], {type:'text/csv;charset=utf-8;'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'leads-equipe-vektor.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Auto-login se sessão ativa
+if(sessionStorage.getItem('bx_auth') === '1'){
+  document.getElementById('loginWrap').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  renderAll();
+}
+
+// Atualiza a cada 30s automaticamente
+setInterval(() => { if(sessionStorage.getItem('bx_auth')==='1') renderAll(); }, 30000);
+</script>
+</body>
+</html>
